@@ -1,7 +1,7 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/genai";
 import { GreetingRequest } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_API_KEY);
 
 export const generateHolidayGreeting = async (request: GreetingRequest): Promise<string> => {
   try {
@@ -12,15 +12,12 @@ export const generateHolidayGreeting = async (request: GreetingRequest): Promise
       Do not include any markdown formatting, just plain text.
     `;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-      config: {
-        thinkingConfig: { thinkingBudget: 0 } // Disable thinking for faster simple text generation
-      }
-    });
+    const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
 
-    return response.text || "Season's Greetings and best wishes for the New Year.";
+    return text || "Season's Greetings and best wishes for the New Year.";
   } catch (error) {
     console.error("Error generating greeting:", error);
     return "Wishing you peace, joy, and prosperity throughout the coming year. Thank you for your continued partnership.";

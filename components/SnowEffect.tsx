@@ -2,14 +2,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SnowDroplet, Puddle } from '../types';
+import { useWindowSize } from './hooks/useWindowSize';
 
 const SnowEffect: React.FC = () => {
   const [droplets, setDroplets] = useState<SnowDroplet[]>([]);
   const [puddles, setPuddles] = useState<Puddle[]>([]);
-  // Use a Set to track active timeouts for O(1) addition/deletion
   const timeoutsRef = useRef<Set<number>>(new Set());
+  const { height } = useWindowSize();
 
-  // Helper to manage timeout lifecycle
   const addTimeout = (callback: () => void, delay: number) => {
     const id = window.setTimeout(() => {
       callback();
@@ -20,36 +20,31 @@ const SnowEffect: React.FC = () => {
   };
 
   useEffect(() => {
-    // Slightly less frequent interval (100ms) to reduce main thread load
     const interval = setInterval(() => {
       const newDroplets: SnowDroplet[] = [];
-      const count = 2 + Math.floor(Math.random() * 3); // 2 to 4 flakes per tick
+      const count = 2 + Math.floor(Math.random() * 3);
       
       const now = Date.now();
       
       for(let i=0; i<count; i++) {
           const id = now + Math.random();
-          const x = Math.random() * 100; // percent
+          const x = Math.random() * 100;
           
-          // Faster fall time for active snow: 1s to 2.5s
           const durationBase = 1000;
           const durationVar = 1500;
           const fallDuration = durationBase + Math.random() * durationVar; 
 
           newDroplets.push({ id, x, delay: 0 });
 
-          // Schedule a puddle when the droplet hits the "floor"
           addTimeout(() => {
               setPuddles(prev => {
                   const nextPuddles = [...prev, { id, x, y: 90 + Math.random() * 5 }];
-                  // Keep puddle count manageable
                   if (nextPuddles.length > 20) return nextPuddles.slice(-20);
                   return nextPuddles;
               });
               setDroplets(prev => prev.filter(d => d.id !== id));
           }, fallDuration); 
           
-          // Cleanup puddle after animation
           addTimeout(() => {
               setPuddles(prev => prev.filter(p => p.id !== id));
           }, fallDuration + 3000);
@@ -58,7 +53,6 @@ const SnowEffect: React.FC = () => {
       if (newDroplets.length > 0) {
         setDroplets(prev => {
              const next = [...prev, ...newDroplets];
-             // Safety cap to prevent memory crashes if animation stalls
              if (next.length > 200) return next.slice(-200);
              return next;
         });
@@ -67,7 +61,6 @@ const SnowEffect: React.FC = () => {
 
     return () => {
         clearInterval(interval);
-        // Clear all active timeouts on unmount
         timeoutsRef.current.forEach(id => clearTimeout(id));
         timeoutsRef.current.clear();
     };
@@ -81,7 +74,7 @@ const SnowEffect: React.FC = () => {
             key={droplet.id}
             initial={{ y: -20, opacity: 0, scale: 0.5 }}
             animate={{ 
-                y: window.innerHeight + 20, 
+                y: height ? height + 20 : 1000, 
                 opacity: [0, 0.9, 0.9, 0], 
                 scale: [0.8, 1.2, 0.5] 
             }}

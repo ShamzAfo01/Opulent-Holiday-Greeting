@@ -2,110 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale-1.0" />
     <title>Opulent Holiday Greetings</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              serif: ['"Playfair Display"', 'serif'],
-              display: ['"Cinzel"', 'serif'],
-              sans: ['"Lato"', 'sans-serif'],
-            },
-            colors: {
-              gold: {
-                100: '#F9F1D8',
-                300: '#EEDC9A',
-                400: '#D4AF37',
-                500: '#C5A028',
-                700: '#AA8C2C',
-                800: '#8A7020',
-                900: '#5C4B13',
-              },
-              christmas: {
-                red: '#8B0000',
-                green: '#1A472A',
-                dark: '#0A0F0D'
-              },
-              deepwood: '#2A1A10',
-              royal: '#0F172A',
-            },
-            animation: {
-              'melt': 'melt 3s ease-out forwards',
-              'fade-in': 'fadeIn 2s ease-out forwards',
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'spin-slow': 'spin 8s linear infinite',
-            },
-            keyframes: {
-              melt: {
-                '0%': { transform: 'scale(0.2)', opacity: '0.8' },
-                '50%': { transform: 'scale(1.2)', opacity: '0.6' },
-                '100%': { transform: 'scale(1.5)', opacity: '0' },
-              },
-              fadeIn: {
-                '0%': { opacity: '0', transform: 'translateY(-10px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              }
-            }
-          },
-        },
-      }
-    </script>
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-        background-color: #050505;
-      }
-      /* Custom scrollbar for the card content */
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
-      }
-      .custom-scrollbar::-webkit-scrollbar-track {
-        background: rgba(0,0,0,0.05);
-      }
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: rgba(197, 160, 40, 0.5);
-        border-radius: 3px;
-      }
-      
-      .ornate-border {
-         mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-         -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-      }
-      
-      .perspective-1000 {
-        perspective: 1000px;
-      }
-      .transform-style-3d {
-        transform-style: preserve-3d;
-      }
-      .backface-hidden {
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-      }
-      .rotate-y-180 {
-        transform: rotateY(180deg);
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@18.3.1",
-    "react-dom": "https://aistudiocdn.com/react-dom@18.3.1",
-    "react-dom/client": "https://aistudiocdn.com/react-dom@18.3.1/client",
-    "react-dom/": "https://aistudiocdn.com/react-dom@18.3.1/",
-    "react/": "https://aistudiocdn.com/react@18.3.1/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0",
-    "framer-motion": "https://aistudiocdn.com/framer-motion@^11.0.8",
-    "lucide-react": "https://esm.sh/lucide-react@0.469.0?external=react,react-dom"
-  }
-}
-</script>
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Libre+Baskerville:ital@0;1&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>

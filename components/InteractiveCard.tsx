@@ -227,7 +227,7 @@ const InteractiveCard: React.FC = () => {
                                 <span className="text-[10px] font-bold uppercase tracking-wider">Rewrite</span>
                             </button>
                             <button 
-                                onClick={() => alert("Greeting sent to the North Pole!")}
+                                onClick={() => console.log("Greeting sent to the North Pole!")}
                                 className="flex items-center space-x-2 bg-christmas-green text-white px-4 py-2 rounded-sm hover:bg-green-900 transition-colors shadow-md"
                             >
                                 <Send className="w-3 h-3 fill-current" />
